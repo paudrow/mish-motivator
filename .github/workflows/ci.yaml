@@ -1,0 +1,22 @@
+name: Deno CI
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@main
+        with:
+          deno-version: 1.x
+
+      - name: Check formatting
+        run: deno fmt --check
+
+      - name: Run tests
+        run: deno test --allow-all --unstable

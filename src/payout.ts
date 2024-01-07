@@ -1,14 +1,14 @@
-export interface Reward {
+export interface PayoutTicket {
   name: string;
   mean: number;
   stdDev: number;
   odds: number;
 }
 
-export function getReward(rewards: Reward[]): Reward | null {
-  rewards.sort((a, b) => a.odds - b.odds);
+export function getPayoutTicket(payout: PayoutTicket[]): PayoutTicket | null {
+  payout.sort((a, b) => a.odds - b.odds);
   const rand = Math.random();
-  for (const reward of rewards) {
+  for (const reward of payout) {
     if (rand <= reward.odds) {
       return reward;
     }
@@ -24,9 +24,9 @@ function gaussianRandom(mean: number, stdDev: number): number {
   return num * stdDev + mean;
 }
 
-export function sampleReward(reward: Reward | null): number {
-  if (reward === null) {
+export function getPayoutValue(payout: PayoutTicket | null): number {
+  if (payout === null) {
     return 0;
   }
-  return gaussianRandom(reward.mean, reward.stdDev);
+  return gaussianRandom(payout.mean, payout.stdDev);
 }

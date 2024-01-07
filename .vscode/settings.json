@@ -1,4 +1,7 @@
 {
   "deno.enable": true,
-  "deno.unstable": true
+  "deno.unstable": true,
+  "editor.indentSize": 2,
+  "editor.tabSize": 2,
+  "editor.defaultFormatter": "denoland.vscode-deno"
 }
