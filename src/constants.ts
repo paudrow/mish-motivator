@@ -1,8 +1,10 @@
 import { type Item, type PayoutTicket } from "./interfaces.ts";
 
-export const currencyUnits = "GJP"; // Good Job Points
+export const CURRENCY_UNITS = "GJP"; // Good Job Points
 
-export const payoutTickets: PayoutTicket[] = [
+export const APP_NAME = "Rewardy";
+
+export const PAYOUT_TICKETS: PayoutTicket[] = [
   {
     name: "Small payout",
     mean: 5,
@@ -29,7 +31,7 @@ export const payoutTickets: PayoutTicket[] = [
   },
 ];
 
-export const items: Item[] = [
+export const ITEMS: Item[] = [
   {
     id: "Get bubble tea",
     price: 30,

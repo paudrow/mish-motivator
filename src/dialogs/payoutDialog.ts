@@ -1,9 +1,9 @@
 import * as db from "../db.ts";
 import { getPayoutTicket, getPayoutValue } from "../payout.ts";
-import { payoutTickets } from "../constants.ts";
+import { PAYOUT_TICKETS } from "../constants.ts";
 import { parseNumber, parseYesOrNo } from "./parsers.ts";
 import { promptUser } from "./promptUser.ts";
-import { formatPoints } from "./displays.ts";
+import { formatCurrency } from "./displays.ts";
 
 export async function payoutDialog(userId: string) {
   console.log("Let's see how much you earned today!\n");
@@ -34,13 +34,13 @@ export async function payoutDialog(userId: string) {
         hideInputArea: true,
       },
     );
-    const ticket = getPayoutTicket(payoutTickets);
+    const ticket = getPayoutTicket(PAYOUT_TICKETS);
     if (!ticket) {
       console.log("Sorry, you didn't win anything this time.");
       continue;
     }
     const payout = getPayoutValue(ticket);
-    console.log(`${ticket.name}: You earned ${formatPoints(payout)}\n`);
+    console.log(`${ticket.name}: You earned ${formatCurrency(payout)}\n`);
     payoutSum += payout;
   }
 
@@ -53,14 +53,14 @@ export async function payoutDialog(userId: string) {
       user.balance += payoutSum;
       await db.updateUser(user);
       console.log(
-        `You earned ${formatPoints(payoutSum)} today! Your new balance is ${
-          formatPoints(user.balance)
+        `You earned ${formatCurrency(payoutSum)} today! Your new balance is ${
+          formatCurrency(user.balance)
         }\n`,
       );
     } else {
       console.log(
         `Sorry, you didn't win anything this time. Your balance is ${
-          formatPoints(user.balance)
+          formatCurrency(user.balance)
         }\n`,
       );
     }

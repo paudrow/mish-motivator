@@ -2,8 +2,8 @@ import * as db from "../db.ts";
 import { type Item, type User } from "../interfaces.ts";
 import { parseYesOrNo } from "./parsers.ts";
 import { promptUser } from "./promptUser.ts";
-import { items } from "../constants.ts";
-import { formatPoints } from "./displays.ts";
+import { ITEMS } from "../constants.ts";
+import { formatCurrency } from "./displays.ts";
 import { promptUserToPickOption } from "./promptUserToPickOrExit.ts";
 
 export async function storeDialog(userId: string) {
@@ -32,7 +32,7 @@ export async function storeDialog(userId: string) {
   ];
   const optionIndex = await promptUserToPickOption(
     `Which item would you like to purchase? You have ${
-      formatPoints(user.balance)
+      formatCurrency(user.balance)
     }. (pick number)`,
     options,
   );
@@ -45,7 +45,7 @@ export async function storeDialog(userId: string) {
 
   const isConfirmBuy = await promptUser(
     `Are you sure you want to purchase "${item.id}" for ${
-      formatPoints(item.price)
+      formatCurrency(item.price)
     }? (y/n)`,
     parseYesOrNo,
   );
@@ -64,7 +64,9 @@ export async function storeDialog(userId: string) {
 
 function formatItemInfo(user: User, item: Item): string {
   const userInventory = user.items.find((i) => i.id === item.id)?.quantity || 0;
-  return `${item.id} (${formatPoints(item.price)}) - you have ${userInventory}`;
+  return `${item.id} (${
+    formatCurrency(item.price)
+  }) - you have ${userInventory}`;
 }
 
 interface ItemsByStatus {
@@ -105,7 +107,7 @@ if (import.meta.main) {
     await db.createUser(userId, 100);
 
     let itemIdToBuy = "";
-    for (const item of items) {
+    for (const item of ITEMS) {
       if (item.price === 30) {
         itemIdToBuy = item.id;
       }

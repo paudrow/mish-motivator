@@ -1,5 +1,8 @@
 {
   "tasks": {
-    "dev": "deno run --unstable -A --watch src/main.ts"
+    "dev": "deno run --unstable -A --watch src/main.ts",
+    "run": "DENO_KV_PATH=./data/deno-kv deno run --unstable -A src/main.ts",
+    "reset-db": "deno run --unstable -A tasks/resetDb.ts",
+    "test": "deno test --unstable -A"
   }
 }

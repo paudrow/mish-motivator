@@ -1,8 +1,7 @@
 import * as db from "../db.ts";
-import { type Item } from "../interfaces.ts";
 import { parseYesOrNo } from "./parsers.ts";
 import { promptUser } from "./promptUser.ts";
-import { items } from "../constants.ts";
+import { ITEMS } from "../constants.ts";
 import { promptUserToPickOption } from "./promptUserToPickOrExit.ts";
 
 export async function exhaustItemDialog(userId: string) {
@@ -60,7 +59,7 @@ if (import.meta.main) {
     await db.reset();
     await db.createUser(userId, 100000); // obscenely high balance for testing
 
-    for (const item of items) {
+    for (const item of ITEMS) {
       await db.createItem(item.id, item.price, item.daysBetweenAvailable);
       if (await db.isUserAbleToPurchaseItem(userId, item.id)) {
         await db.purchaseItem(userId, item.id);

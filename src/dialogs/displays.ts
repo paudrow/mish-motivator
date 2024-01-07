@@ -1,5 +1,5 @@
-import { currencyUnits } from "../constants.ts";
+import { CURRENCY_UNITS } from "../constants.ts";
 
-export function formatPoints(amount: number): string {
-  return `${amount.toFixed(2)} ${currencyUnits}`;
+export function formatCurrency(amount: number): string {
+  return `${amount.toFixed(2)} ${CURRENCY_UNITS}`;
 }

@@ -5,10 +5,11 @@ import { promptUserToPickOption } from "./promptUserToPickOrExit.ts";
 import { storeDialog } from "./storeDialog.ts";
 import { exhaustItemDialog } from "./exhaustItemDialog.ts";
 import { payoutDialog } from "./payoutDialog.ts";
-import { formatPoints } from "./displays.ts";
+import { formatCurrency } from "./displays.ts";
+import { APP_NAME } from "../constants.ts";
 
 export async function mainDialog() {
-  console.log("Welcome to the Mish Motivator!\n");
+  console.log(`Welcome to ${APP_NAME}!\n`);
 
   const userId = await promptUser("What's your user ID?", (reply) => reply);
 
@@ -74,5 +75,5 @@ async function checkBalance(userId: string) {
   if (!user) {
     throw new Error("User not found");
   }
-  console.log(`Your balance is ${formatPoints(user.balance)}\n`);
+  console.log(`Your balance is ${formatCurrency(user.balance)}\n`);
 }
