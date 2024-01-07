@@ -15,13 +15,13 @@ export const PAYOUT_TICKETS: PayoutTicket[] = [
     name: "Medium payout",
     mean: 10,
     stdDev: 2,
-    odds: 0.25,
+    odds: 0.35,
   },
   {
     name: "Large payout",
     mean: 20,
     stdDev: 3,
-    odds: 0.1,
+    odds: 0.15,
   },
   {
     name: "Jackpot!",

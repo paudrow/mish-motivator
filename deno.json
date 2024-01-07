@@ -1,8 +1,10 @@
 {
   "tasks": {
     "dev": "deno run --unstable -A --watch src/main.ts",
-    "run": "DENO_KV_PATH=./data/deno-kv deno run --unstable -A src/main.ts",
-    "reset-db": "deno run --unstable -A tasks/resetDb.ts",
+    "run": "mkdir -p data && DENO_KV_PATH=./data/deno-kv deno run --unstable -A src/main.ts",
+    "reset-test-db": "deno run --unstable -A tasks/resetDb.ts",
+    "reset-main-db": "DENO_KV_PATH=./data/deno-kv deno run --unstable -A tasks/resetDb.ts",
+    "get-avg-payout": "deno run tasks/getAvgPayout.ts",
     "test": "deno test --unstable -A"
   }
 }

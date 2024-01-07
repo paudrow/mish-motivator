@@ -1,4 +1,4 @@
-# Mish Motivator
+# Rewardy
 
 This is an attempt to create a Deno app to gamify daily tasks.
 
@@ -11,7 +11,15 @@ about it).
 
 ## Usage
 
-> WIP
+You can see the available tasks with `deno task`.
+
+Some commands to note:
+
+- `deno task run` will run the application and make a new location for the data,
+  so that it isn't overwritten during testing.
+- `deno task test` will run the tests.
+- `deno task get-avg-payout` looks at the payout tickets and calculates the
+  average payout as well as shows the percentages of each payout.
 
 ## Tech stack
 
