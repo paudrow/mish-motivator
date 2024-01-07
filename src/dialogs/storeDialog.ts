@@ -15,15 +15,16 @@ export async function storeDialog(userId: string) {
   }
 
   const itemsByStatus = await getItemsByStatus(userId);
+  console.log("Here's what's not available:\n");
+  for (const item of itemsByStatus.notAbleToPurchase) {
+    console.log(`- ${formatItemInfo(user, item)}`);
+  }
+  console.log();
   if (itemsByStatus.ableToPurchase.length === 0) {
     console.log("Sorry, there's nothing available right now.\n");
     return;
   }
 
-  console.log("Here's what's not available:\n");
-  for (const item of itemsByStatus.notAbleToPurchase) {
-    console.log(`- ${formatItemInfo(user, item)}`);
-  }
   console.log();
   console.log("Here's what's available:\n");
   const options = [
