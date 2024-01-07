@@ -9,7 +9,6 @@ export interface User {
 
 export interface Item {
   id: string;
-  name: string;
   price: number;
   daysBetweenAvailable: number;
 }
@@ -34,4 +33,11 @@ export interface ExhaustItemEvent {
   userId: string;
   itemId: string;
   date: Date;
+}
+
+export interface PayoutTicket {
+  name: string;
+  mean: number;
+  stdDev: number;
+  odds: number;
 }

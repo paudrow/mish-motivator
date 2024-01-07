@@ -1,9 +1,4 @@
-export interface PayoutTicket {
-  name: string;
-  mean: number;
-  stdDev: number;
-  odds: number;
-}
+import { type PayoutTicket } from "./interfaces.ts";
 
 export function getPayoutTicket(payout: PayoutTicket[]): PayoutTicket | null {
   payout.sort((a, b) => a.odds - b.odds);

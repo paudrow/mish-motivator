@@ -108,14 +108,12 @@ export async function deleteUserById(id: string): Promise<void> {
 }
 
 export async function createItem(
-  name: string,
+  id: string,
   price: number,
   daysBetweenAvailable: number,
 ): Promise<string> {
-  const id = crypto.randomUUID();
   const item: Item = {
     id,
-    name,
     price,
     daysBetweenAvailable,
   };
@@ -301,7 +299,36 @@ export async function getPurchaseEventsByUserId(
       purchaseEvents.push(purchaseEvent);
     }
   }
+  purchaseEvents.sort((a, b) => b.date.getTime() - a.date.getTime());
   return purchaseEvents;
+}
+
+export async function getPurchaseEventsByUserIdAndItemId(
+  userId: string,
+  itemId: string,
+): Promise<PurchaseEvent[]> {
+  const purchaseEvents = await getPurchaseEventsByUserId(userId);
+  const output: PurchaseEvent[] = [];
+  for (const purchaseEvent of purchaseEvents) {
+    if (purchaseEvent.itemId === itemId) {
+      output.push(purchaseEvent);
+    }
+  }
+  return output;
+}
+
+export async function getLastPurchaseEventByUserIdAndItemId(
+  userId: string,
+  itemId: string,
+): Promise<PurchaseEvent | null> {
+  const purchaseEvents = await getPurchaseEventsByUserIdAndItemId(
+    userId,
+    itemId,
+  );
+  if (purchaseEvents.length === 0) {
+    return null;
+  }
+  return purchaseEvents[purchaseEvents.length - 1];
 }
 
 export async function getExhaustItemEventsByUserId(
@@ -347,9 +374,11 @@ export async function isUserAbleToPurchaseItem(
   if (user.balance < item.price) {
     return false;
   }
-  const purchaseEvents = await getPurchaseEventsByUserId(userId);
-  const lastPurchaseEvent = purchaseEvents[purchaseEvents.length - 1];
-  if (lastPurchaseEvent === undefined) {
+  const lastPurchaseEvent = await getLastPurchaseEventByUserIdAndItemId(
+    userId,
+    itemId,
+  );
+  if (lastPurchaseEvent === null) {
     return true;
   }
   const daysSinceLastPurchase =

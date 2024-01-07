@@ -3,11 +3,8 @@ import {
   assertEquals,
   fail,
 } from "https://deno.land/std@0.211.0/assert/mod.ts";
-import {
-  getPayoutTicket,
-  getPayoutValue,
-  type PayoutTicket,
-} from "./payout.ts";
+import { type PayoutTicket } from "./interfaces.ts";
+import { getPayoutTicket, getPayoutValue } from "./payout.ts";
 
 Deno.test("getPayoutTicket has reasonable picking behavior", () => {
   const DEFAULT = "default";
